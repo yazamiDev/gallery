@@ -1,0 +1,54 @@
+<div id="container">
+    <!-- author search form  -->
+    <form id="form">
+        <mat-form-field appearance="outline">
+            <mat-label>
+                <mat-icon id="icon-form-field">search</mat-icon>
+                <span>Search author name ...</span>   
+            </mat-label>
+            <input type="text"
+            placeholder="Author"
+            aria-label="Author"
+            matInput
+            [formControl]="authorFormControl"
+            [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let author of filteredAuthors | async" [value]="author">
+                    {{author}}
+                </mat-option>
+              </mat-autocomplete>
+        </mat-form-field>
+    </form>
+    <!-- title -->
+    <h1 *ngIf="isEmptyFlag">{{selectedAuthor}}</h1> 
+    <h1 *ngIf="!isEmptyFlag">Please select an author 🙂</h1> 
+    <!-- subtitle -->
+    <h3>Author, {{currentAuthorPhotos.length}} photos</h3>
+    <!-- spinner -->
+    <div *ngIf="spinnerService.isLoading | async" id="spinner">
+        <mat-spinner></mat-spinner>
+    </div>
+    <!-- photo tiles -->
+    <div *ngIf="isEmptyFlag">
+        <mat-grid-list cols="6" rowHeight="200px" gutterSize="35px">
+            <mat-grid-tile
+                *ngFor="let photo of currentPhotos; let index = index;"
+                [colspan]="tiles[index].cols"
+                [rowspan]="tiles[index].rows">
+                <img id="main-gallery"
+                src="https://picsum.photos/id/{{photo.id}}/400/600" alt="photo"
+                (click)="openModal(photo)">
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+    <!-- Paginator  -->
+    <div *ngIf="isEmptyFlag" class="paginator">
+        <mat-paginator
+            (page)="handlePageEvent($event)"
+            [length]="currentAuthorPhotos.length"
+            [pageSize]="pageSize"
+            [hidePageSize]="true"
+            aria-label="Select page">
+        </mat-paginator>
+    </div>
+</div>

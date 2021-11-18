@@ -1,0 +1,11 @@
+@import "../../styles.css";
+
+#author-name {
+    float: left;
+}
+
+#button-close-modal {
+    float: right;
+    margin-bottom: 12px;
+}
+

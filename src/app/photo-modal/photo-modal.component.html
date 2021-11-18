@@ -1,0 +1,19 @@
+<div id="modal">
+    <h2 id="author-name">{{currentPhoto.author}}</h2>
+    <span id="button-close-modal">
+        <button mat-icon-button mat-dialog-close >
+            <mat-icon>close</mat-icon>
+        </button>
+    </span>
+    <div>
+    <img src="https://picsum.photos/id/{{currentPhoto.id}}/{{currentPhoto.width}}/{{currentPhoto.height}}" 
+    height="650px" width="100%" alt="photo">
+    </div>
+    <mat-paginator class="paginator"
+        (page)="handlePageEvent($event)"
+        [length]="currentAuthorPhotos.length"
+        [pageSize]="1"
+        [pageIndex] = "pageIndex"
+        [hidePageSize]="true">
+    </mat-paginator>
+</div>
